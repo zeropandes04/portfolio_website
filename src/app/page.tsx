@@ -10,7 +10,7 @@ export default async function HomePage() {
   return (
     <div className="max-w-5xl mx-auto px-6">
       {/* ── Hero / Profile ─────────────────────────────────────────────── */}
-      <section className="py-20 md:py-28 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-10 items-center">
+      <section className="py-20 md:py-28">
         <div>
           <p className="text-sm font-semibold uppercase tracking-widest text-indigo-500 mb-4">
             Product Manager
@@ -42,18 +42,6 @@ export default async function HomePage() {
               </svg>
               LinkedIn
             </a>
-          </div>
-        </div>
-
-        {/* Avatar */}
-        <div className="flex justify-center md:justify-end">
-          <div className="w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden bg-gradient-to-br from-indigo-100 to-indigo-200 flex items-center justify-center flex-shrink-0 ring-4 ring-indigo-100">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={profile.avatarUrl}
-              alt={profile.name}
-              className="w-full h-full object-cover"
-            />
           </div>
         </div>
       </section>
