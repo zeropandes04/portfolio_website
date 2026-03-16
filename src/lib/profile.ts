@@ -4,7 +4,7 @@ export const profile = {
   bio:
     process.env.NEXT_PUBLIC_PROFILE_BIO ||
     "I'm a Product Manager driven by creating delightful and intuitive user experiences. I blend innovation with user-centric design — explore my case studies below.",
-  email: "hello@xavipuig.com",
+  email: "xavierpuig@icloud.com",
   linkedin: "https://linkedin.com/in/xavipuig",
   avatarUrl: "/avatar.jpg", // Place your photo at public/avatar.jpg
 };
