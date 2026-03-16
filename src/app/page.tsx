@@ -46,30 +46,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── Skills / Tags ───────────────────────────────────────────────── */}
-      <section className="pb-12 border-t border-neutral-100 pt-10">
-        <div className="flex flex-wrap gap-2">
-          {[
-            "Product Strategy",
-            "User Research",
-            "Roadmapping",
-            "Agile",
-            "UX Design",
-            "Data Analysis",
-            "Stakeholder Management",
-            "Go-to-Market",
-          ].map((skill) => (
-            <span
-              key={skill}
-              className="text-sm text-neutral-600 bg-neutral-100 px-4 py-1.5 rounded-full"
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Projects / Case Studies ─────────────────────────────────────── */}
+{/* ── Projects / Case Studies ─────────────────────────────────────── */}
       <section id="work" className="pb-24">
         <div className="flex items-baseline justify-between mb-2">
           <h2 className="text-3xl font-bold text-neutral-900">Case studies</h2>
