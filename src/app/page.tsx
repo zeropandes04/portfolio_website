@@ -12,12 +12,12 @@ export default async function HomePage() {
       {/* ── Hero / Profile ─────────────────────────────────────────────── */}
       <section className="py-20 md:py-28">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-widest text-indigo-500 mb-4">
+          <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: "var(--brand-blue)" }}>
             Product Manager
           </p>
           <h1 className="text-5xl md:text-6xl font-bold text-neutral-900 leading-tight mb-6">
             Hi, I&apos;m{" "}
-            <span className="text-indigo-600">
+            <span style={{ color: "var(--brand-blue)" }}>
               {profile.name.split(" ")[0]}
             </span>
           </h1>
@@ -27,7 +27,7 @@ export default async function HomePage() {
           <div className="flex items-center gap-4">
             <a
               href="#work"
-              className="bg-indigo-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-indigo-700 transition-colors"
+              className="btn-primary text-white px-6 py-3 rounded-full font-semibold transition-opacity hover:opacity-80"
             >
               View my work
             </a>
@@ -35,7 +35,7 @@ export default async function HomePage() {
               href={profile.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-neutral-600 font-medium hover:text-indigo-600 transition-colors"
+              className="flex items-center gap-2 text-neutral-600 font-medium transition-opacity hover:opacity-70"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
@@ -46,7 +46,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-{/* ── Projects / Case Studies ─────────────────────────────────────── */}
+      {/* ── Projects / Case Studies ─────────────────────────────────────── */}
       <section id="work" className="pb-24">
         <div className="flex items-baseline justify-between mb-2">
           <h2 className="text-3xl font-bold text-neutral-900">Case studies</h2>
@@ -80,7 +80,7 @@ function EmptyState() {
       <p className="text-neutral-400 max-w-sm mx-auto">
         Connect your Notion database and add your first project to see it
         appear here. See the{" "}
-        <code className="text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded text-sm">
+        <code className="px-1.5 py-0.5 rounded text-sm" style={{ color: "var(--brand-blue)", backgroundColor: "#eef3fe" }}>
           .env.local.example
         </code>{" "}
         file for setup instructions.

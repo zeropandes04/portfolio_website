@@ -12,7 +12,8 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-indigo-700 transition-colors"
+        className="inline-flex items-center gap-2 text-white px-6 py-3 rounded-full font-semibold transition-opacity hover:opacity-80"
+        style={{ backgroundColor: "var(--brand-blue)" }}
       >
         Back to home
       </Link>

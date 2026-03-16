@@ -7,7 +7,7 @@ export function Header() {
       <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
         <Link
           href="/"
-          className="font-semibold text-neutral-900 tracking-tight hover:text-indigo-600 transition-colors text-sm"
+          className="font-semibold text-neutral-900 tracking-tight text-sm transition-opacity hover:opacity-70"
         >
           {profile.name.split(" ")[0]} <span className="text-neutral-400 font-normal">/ Product</span>
         </Link>
@@ -18,7 +18,8 @@ export function Header() {
           </Link>
           <a
             href={`mailto:${profile.email}`}
-            className="bg-neutral-900 text-white px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-indigo-600 transition-colors"
+            className="text-white px-4 py-1.5 rounded-full text-xs font-semibold transition-opacity hover:opacity-80"
+            style={{ backgroundColor: "var(--brand-blue)" }}
           >
             Contact
           </a>

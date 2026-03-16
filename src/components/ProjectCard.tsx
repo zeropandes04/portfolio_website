@@ -50,13 +50,13 @@ export function ProjectCard({ project, index }: Props) {
         <span className="text-xs font-semibold uppercase tracking-widest text-neutral-400 mb-2 block">
           Case Study {String(index + 1).padStart(2, "0")}
         </span>
-        <h3 className="text-2xl font-bold text-neutral-900 mb-2 group-hover:text-indigo-600 transition-colors">
-          {project.title}
+        <h3 className="text-2xl font-bold text-neutral-900 mb-2 transition-colors" style={{ ["--tw-text-opacity" as string]: "1" }}>
+          <span className="group-hover:text-[#3D79F2] transition-colors">{project.title}</span>
         </h3>
         <p className="text-neutral-500 leading-relaxed mb-4 max-w-lg">
           {project.description}
         </p>
-        <span className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-700 border border-neutral-300 rounded-full px-4 py-1.5 group-hover:border-indigo-400 group-hover:text-indigo-600 transition-all">
+        <span className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-700 border border-neutral-300 rounded-full px-4 py-1.5 transition-all group-hover:border-[#3D79F2] group-hover:text-[#3D79F2]">
           Read case study
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

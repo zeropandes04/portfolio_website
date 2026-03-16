@@ -1,4 +1,3 @@
-import { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { NotionBlocks } from "./NotionBlock";
 
 interface Props {
@@ -21,16 +20,15 @@ export function PyramidSection({
 
   return (
     <section
-      className={`rounded-2xl p-6 md:p-8 mb-6 ${
+      className="rounded-2xl p-6 md:p-8 mb-6"
+      style={
         variant === "highlight"
-          ? "bg-indigo-50 border border-indigo-100"
-          : "bg-white border border-neutral-100"
-      }`}
+          ? { backgroundColor: "#fff8f0", border: "1px solid var(--brand-orange)" }
+          : { backgroundColor: "#ffffff", border: "1px solid #e5e7eb" }
+      }
     >
       <div className="flex items-start gap-4 mb-5">
-        <span
-          className={`text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full ${accentColor}`}
-        >
+        <span className={`text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full ${accentColor}`}>
           {label}
         </span>
       </div>

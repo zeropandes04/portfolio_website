@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 type RichText = {
@@ -19,7 +18,7 @@ function RichTextSpan({ item }: { item: RichText }) {
 
   if (item.annotations.code) {
     content = (
-      <code className="bg-neutral-100 text-rose-600 px-1.5 py-0.5 rounded text-sm font-mono">
+      <code className="bg-neutral-100 px-1.5 py-0.5 rounded text-sm font-mono" style={{ color: "var(--brand-coral)" }}>
         {content}
       </code>
     );
@@ -36,7 +35,8 @@ function RichTextSpan({ item }: { item: RichText }) {
         href={item.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-indigo-600 underline hover:text-indigo-800"
+        className="underline hover:opacity-70 transition-opacity"
+        style={{ color: "var(--brand-blue)" }}
       >
         {content}
       </a>
@@ -119,14 +119,14 @@ export function NotionBlock({ block }: { block: AnyBlock }) {
 
     case "quote":
       return (
-        <blockquote className="border-l-4 border-indigo-400 pl-5 py-1 my-4 text-neutral-600 italic bg-indigo-50 rounded-r-lg">
+        <blockquote className="pl-5 py-1 my-4 text-neutral-600 italic rounded-r-lg" style={{ borderLeft: "4px solid var(--brand-yellow)", backgroundColor: "#fef9ee" }}>
           <RichTextContent rich={block.quote.rich_text} />
         </blockquote>
       );
 
     case "callout":
       return (
-        <div className="flex gap-3 bg-neutral-50 border border-neutral-200 rounded-xl p-4 my-4">
+        <div className="flex gap-3 border border-neutral-200 rounded-xl p-4 my-4" style={{ backgroundColor: "var(--brand-light)" }}>
           {block.callout.icon?.type === "emoji" && (
             <span className="text-2xl">{block.callout.icon.emoji}</span>
           )}
@@ -169,7 +169,6 @@ export function NotionBlock({ block }: { block: AnyBlock }) {
           ? block.video.external.url
           : block.video.file?.url;
       if (!url) return null;
-      // Embed YouTube
       if (url.includes("youtube.com") || url.includes("youtu.be")) {
         const videoId = url.includes("youtu.be")
           ? url.split("/").pop()
@@ -227,7 +226,7 @@ export function NotionBlock({ block }: { block: AnyBlock }) {
       );
 
     case "table_of_contents":
-      return null; // Skip ToC blocks
+      return null;
 
     case "embed":
       return (
@@ -242,7 +241,6 @@ export function NotionBlock({ block }: { block: AnyBlock }) {
 }
 
 export function NotionBlocks({ blocks }: { blocks: AnyBlock[] }) {
-  // Group consecutive list items
   const rendered: React.ReactNode[] = [];
   let i = 0;
 

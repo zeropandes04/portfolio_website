@@ -57,7 +57,7 @@ export default async function ProjectPage({
             className="w-full h-full object-cover opacity-60"
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-indigo-900" />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, var(--brand-blue), #1a4fa8)" }} />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 max-w-4xl mx-auto px-6 pb-10">
@@ -85,7 +85,7 @@ export default async function ProjectPage({
 
         {hasPyramidSections ? (
           <>
-<PyramidSection
+            <PyramidSection
               label="Situation"
               description="The context and background — what was the world like before this project?"
               accentColor="bg-blue-100 text-blue-700"
@@ -102,7 +102,7 @@ export default async function ProjectPage({
             <PyramidSection
               label="Key Question & Answer"
               description="The core question this project answered — and the insight that unlocked the solution."
-              accentColor="bg-indigo-100 text-indigo-700"
+              accentColor="bg-orange-100 text-orange-700"
               blocks={project.answer}
               variant="highlight"
             />
@@ -119,7 +119,6 @@ export default async function ProjectPage({
             )}
           </>
         ) : (
-          /* ── Fallback: render all blocks normally ──────────────────── */
           <div className="prose-content">
             <NotionBlocks blocks={project.allBlocks} />
           </div>
@@ -129,7 +128,7 @@ export default async function ProjectPage({
         <div className="mt-16 pt-8 border-t border-neutral-100 flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-neutral-600 font-medium hover:text-indigo-600 transition-colors"
+            className="inline-flex items-center gap-2 text-neutral-600 font-medium transition-colors hover:opacity-70"
           >
             <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
               <path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
