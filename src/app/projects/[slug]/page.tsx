@@ -85,30 +85,7 @@ export default async function ProjectPage({
 
         {hasPyramidSections ? (
           <>
-            {/* ── Pyramid Principle Layout ─────────────────────────────── */}
-            <div className="mb-8">
-              <h2 className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-6">
-                Case Study Structure
-              </h2>
-              <div className="grid grid-cols-3 gap-3 mb-12">
-                {[
-                  { label: "Situation", icon: "🌍", desc: "Context & background" },
-                  { label: "Complication", icon: "⚡", desc: "The challenge" },
-                  { label: "Answer", icon: "💡", desc: "Key insight" },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="bg-neutral-50 rounded-xl p-4 text-center border border-neutral-100"
-                  >
-                    <div className="text-2xl mb-1">{item.icon}</div>
-                    <div className="font-semibold text-neutral-800 text-sm">{item.label}</div>
-                    <div className="text-xs text-neutral-400 mt-0.5">{item.desc}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <PyramidSection
+<PyramidSection
               label="Situation"
               description="The context and background — what was the world like before this project?"
               accentColor="bg-blue-100 text-blue-700"
