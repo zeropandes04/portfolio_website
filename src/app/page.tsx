@@ -21,7 +21,7 @@ export default async function HomePage() {
               {profile.name.split(" ")[0]}
             </span>
           </h1>
-          <p className="text-xl text-neutral-500 leading-relaxed max-w-xl mb-8">
+          <p className="text-xl text-neutral-500 leading-relaxed mb-8">
             {profile.bio}
           </p>
           <div className="flex items-center gap-4">
