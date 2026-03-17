@@ -9,7 +9,7 @@ export function Header() {
           href="/"
           className="font-semibold text-neutral-900 tracking-tight text-sm transition-opacity hover:opacity-70"
         >
-          {profile.name.split(" ")[0]} <span className="text-neutral-400 font-normal">/ Product</span>
+          Xavier Puig <span className="text-neutral-400 font-normal">/ Product Management · User Experience · AI Systems</span>
         </Link>
 
         <nav className="flex items-center gap-6 text-sm">
