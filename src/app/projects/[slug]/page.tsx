@@ -4,6 +4,21 @@ import { getProjectBySlug, getProjects } from "@/lib/notion";
 import { PyramidSection } from "@/components/PyramidSection";
 import { NotionBlocks } from "@/components/NotionBlock";
 
+const COLOR_HEX: Record<string, string> = {
+  green:  "#10b981",
+  blue:   "#0ea5e9",
+  yellow: "#fbbf24",
+  red:    "#f43f5e",
+  purple: "#8b5cf6",
+  orange: "#f97316",
+  pink:   "#ec4899",
+  gray:   "#6b7280",
+};
+
+function getBannerColor(color: string): string {
+  return COLOR_HEX[color] ?? COLOR_HEX.blue;
+}
+
 export const revalidate = 60;
 
 export async function generateStaticParams() {
@@ -43,16 +58,17 @@ export default async function ProjectPage({
   return (
     <div>
       {/* ── Hero Banner ─────────────────────────────────────────────────── */}
-      <div className="relative h-64 md:h-96 bg-neutral-900 overflow-hidden">
-        {project.coverUrl ? (
+      <div
+        className="relative h-64 md:h-96 overflow-hidden"
+        style={{ backgroundColor: getBannerColor(project.color) }}
+      >
+        {project.coverUrl && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={project.coverUrl}
             alt={project.title}
             className="w-full h-full object-cover opacity-60"
           />
-        ) : (
-          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, var(--brand-blue), #1a4fa8)" }} />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 max-w-4xl mx-auto px-6 pb-10">
