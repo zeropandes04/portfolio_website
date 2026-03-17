@@ -12,9 +12,6 @@ export default async function HomePage() {
       {/* ── Hero / Profile ─────────────────────────────────────────────── */}
       <section className="py-20 md:py-28">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: "var(--brand-blue)" }}>
-            Product Manager
-          </p>
           <h1 className="text-5xl md:text-6xl font-bold text-neutral-900 leading-tight mb-6">
             Hi, I&apos;m{" "}
             <span style={{ color: "var(--brand-blue)" }}>
