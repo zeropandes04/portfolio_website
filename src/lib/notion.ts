@@ -177,8 +177,8 @@ async function getAllBlocks(blockId: string): Promise<BlockObjectResponse[]> {
     for (const block of response.results) {
       if (isFullBlock(block)) {
         blocks.push(block);
-        // Recursively fetch children for togglable/expandable blocks
-        if (block.has_children && ["toggle", "bulleted_list_item", "numbered_list_item", "quote", "callout"].includes(block.type)) {
+        // Recursively fetch children for blocks that contain nested content
+        if (block.has_children && ["toggle", "bulleted_list_item", "numbered_list_item", "quote", "callout", "column_list", "column", "synced_block"].includes(block.type)) {
           const children = await getAllBlocks(block.id);
           (block as BlockObjectResponse & { children?: BlockObjectResponse[] }).children = children;
         }
