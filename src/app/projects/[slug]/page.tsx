@@ -73,16 +73,16 @@ export default async function ProjectPage({
           <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
             {project.title}
           </h1>
+          {project.description && (
+            <p className="mt-3 text-lg text-white/70 leading-relaxed">
+              {project.description}
+            </p>
+          )}
         </div>
       </div>
 
       {/* ── Content ──────────────────────────────────────────────────────── */}
       <div className="max-w-4xl mx-auto px-6 py-12">
-        {/* Summary line */}
-        <p className="text-xl text-neutral-500 leading-relaxed mb-12 pb-10 border-b border-neutral-100">
-          {project.description}
-        </p>
-
         {hasPyramidSections ? (
           <>
             <PyramidSection
