@@ -17,7 +17,7 @@ export function PyramidSection({ label, blocks }: Props) {
       <div className="mb-5">
         <span
           className="text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full text-white"
-          style={{ backgroundColor: "var(--brand-blue)" }}
+          style={{ backgroundColor: "var(--brand-coral)" }}
         >
           {label}
         </span>
