@@ -19,7 +19,7 @@ function getBannerColor(color: string): string {
   return COLOR_HEX[color] ?? COLOR_HEX.blue;
 }
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   const projects = await getProjects();
