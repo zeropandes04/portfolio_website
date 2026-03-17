@@ -40,11 +40,6 @@ export default async function ProjectPage({
 
   if (!project) notFound();
 
-  const hasPyramidSections =
-    project.situation.length > 0 ||
-    project.complication.length > 0 ||
-    project.answer.length > 0;
-
   return (
     <div>
       {/* ── Hero Banner ─────────────────────────────────────────────────── */}
@@ -83,41 +78,22 @@ export default async function ProjectPage({
 
       {/* ── Content ──────────────────────────────────────────────────────── */}
       <div className="max-w-4xl mx-auto px-6 py-12">
-        {hasPyramidSections ? (
-          <>
-            <PyramidSection
-              label="Situation"
-              description="The context and background — what was the world like before this project?"
-              accentColor="bg-blue-100 text-blue-700"
-              blocks={project.situation}
-            />
+        {/* Intro blocks (before first H2) */}
+        {project.intro.length > 0 && (
+          <div className="prose-content mb-8">
+            <NotionBlocks blocks={project.intro} />
+          </div>
+        )}
 
+        {/* H2-delimited sections */}
+        {project.sections.length > 0 ? (
+          project.sections.map((section) => (
             <PyramidSection
-              label="Complication"
-              description="The challenge or tension — why was the status quo not good enough?"
-              accentColor="bg-amber-100 text-amber-700"
-              blocks={project.complication}
+              key={section.label}
+              label={section.label}
+              blocks={section.blocks}
             />
-
-            <PyramidSection
-              label="Key Question & Answer"
-              description="The core question this project answered — and the insight that unlocked the solution."
-              accentColor="bg-orange-100 text-orange-700"
-              blocks={project.answer}
-              variant="highlight"
-            />
-
-            {project.body.length > 0 && (
-              <section className="mt-8">
-                <h2 className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-6">
-                  Deep dive
-                </h2>
-                <div className="prose-content">
-                  <NotionBlocks blocks={project.body} />
-                </div>
-              </section>
-            )}
-          </>
+          ))
         ) : (
           <div className="prose-content">
             <NotionBlocks blocks={project.allBlocks} />
@@ -125,7 +101,7 @@ export default async function ProjectPage({
         )}
 
         {/* ── Navigation ───────────────────────────────────────────────── */}
-        <div className="mt-16 pt-8 border-t border-neutral-100 flex items-center justify-between">
+        <div className="mt-16 pt-8 border-t border-neutral-100">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-neutral-600 font-medium transition-colors hover:opacity-70"

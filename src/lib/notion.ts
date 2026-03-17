@@ -22,13 +22,14 @@ export interface Project {
   published: boolean;
 }
 
+export interface PageSection {
+  label: string;
+  blocks: BlockObjectResponse[];
+}
+
 export interface ProjectDetail extends Project {
-  // Pyramid-principle sections extracted from Notion page blocks
-  situation: BlockObjectResponse[];
-  complication: BlockObjectResponse[];
-  answer: BlockObjectResponse[];
-  body: BlockObjectResponse[];
-  // Raw blocks for fallback rendering
+  sections: PageSection[];   // one entry per H2 in the page
+  intro: BlockObjectResponse[]; // blocks before the first H2
   allBlocks: BlockObjectResponse[];
 }
 
@@ -157,11 +158,9 @@ export async function getProjectBySlug(slug: string): Promise<ProjectDetail | nu
 
   const project = pageToProject(page);
   const blocks = await getAllBlocks(page.id);
+  const { sections, intro } = splitByH2(blocks);
 
-  // Split blocks by pyramid-principle headings
-  const sections = splitByPyramidSections(blocks);
-
-  return { ...project, ...sections, allBlocks: blocks };
+  return { ...project, sections, intro, allBlocks: blocks };
 }
 
 async function getAllBlocks(blockId: string): Promise<BlockObjectResponse[]> {
@@ -193,57 +192,33 @@ async function getAllBlocks(blockId: string): Promise<BlockObjectResponse[]> {
 }
 
 /**
- * Splits Notion blocks into pyramid-principle sections.
- * Looks for headings like "## Situation", "## Complication", "## Answer"
- * Everything else goes into `body`.
+ * Splits Notion blocks into sections at every H2.
+ * The H2 text becomes the section label; its following blocks are the content.
+ * Blocks before the first H2 go into `intro`.
  */
-function splitByPyramidSections(blocks: BlockObjectResponse[]): {
-  situation: BlockObjectResponse[];
-  complication: BlockObjectResponse[];
-  answer: BlockObjectResponse[];
-  body: BlockObjectResponse[];
+function splitByH2(blocks: BlockObjectResponse[]): {
+  sections: PageSection[];
+  intro: BlockObjectResponse[];
 } {
-  const sections = {
-    situation: [] as BlockObjectResponse[],
-    complication: [] as BlockObjectResponse[],
-    answer: [] as BlockObjectResponse[],
-    body: [] as BlockObjectResponse[],
-  };
-
-  type SectionKey = keyof typeof sections;
-  let current: SectionKey = "body";
-
-  const SECTION_HEADINGS: Record<string, SectionKey> = {
-    situation: "situation",
-    complication: "complication",
-    "key question": "answer",
-    answer: "answer",
-    resolution: "answer",
-    "key insight": "answer",
-  };
+  const intro: BlockObjectResponse[] = [];
+  const sections: PageSection[] = [];
 
   for (const block of blocks) {
-    if (
-      block.type === "heading_1" ||
-      block.type === "heading_2" ||
-      block.type === "heading_3"
-    ) {
-      const headingBlock = block as BlockObjectResponse & {
-        [key: string]: { rich_text: RichTextItemResponse[] };
+    if (block.type === "heading_2") {
+      const h2 = block as BlockObjectResponse & {
+        heading_2: { rich_text: RichTextItemResponse[] };
       };
-      const text = richTextToPlain(headingBlock[block.type].rich_text).toLowerCase().trim();
-
-      const matched = Object.keys(SECTION_HEADINGS).find((key) =>
-        text.includes(key)
-      ) as string | undefined;
-
-      if (matched) {
-        current = SECTION_HEADINGS[matched];
-        continue; // skip the heading block itself — the badge label replaces it
-      }
+      const label = richTextToPlain(h2.heading_2.rich_text).trim();
+      sections.push({ label, blocks: [] });
+      continue;
     }
-    sections[current].push(block);
+
+    if (sections.length === 0) {
+      intro.push(block);
+    } else {
+      sections[sections.length - 1].blocks.push(block);
+    }
   }
 
-  return sections;
+  return { sections, intro };
 }
