@@ -239,8 +239,7 @@ function splitByPyramidSections(blocks: BlockObjectResponse[]): {
 
       if (matched) {
         current = SECTION_HEADINGS[matched];
-        sections[current].push(block);
-        continue;
+        continue; // skip the heading block itself — the badge label replaces it
       }
     }
     sections[current].push(block);
