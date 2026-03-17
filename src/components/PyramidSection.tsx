@@ -15,7 +15,10 @@ export function PyramidSection({ label, blocks }: Props) {
       style={{ backgroundColor: "#ffffff", border: "1px solid #e5e7eb" }}
     >
       <div className="mb-5">
-        <span className="text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full bg-neutral-900 text-white">
+        <span
+          className="text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full text-white"
+          style={{ backgroundColor: "var(--brand-blue)" }}
+        >
           {label}
         </span>
       </div>
