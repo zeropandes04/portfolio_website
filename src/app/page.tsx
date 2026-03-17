@@ -48,12 +48,11 @@ export default async function HomePage() {
 
       {/* ── Projects / Case Studies ─────────────────────────────────────── */}
       <section id="work" className="pb-24">
-        <div className="flex items-baseline justify-between mb-2">
-          <h2 className="text-3xl font-bold text-neutral-900">Case studies</h2>
-          <span className="text-sm text-neutral-400">{projects.length} projects</span>
+        <div className="mb-2">
+          <h2 className="text-3xl font-bold text-neutral-900">Projects &amp; explorations</h2>
         </div>
         <p className="text-neutral-500 mb-8">
-          A selection of product work — click any card to read the full case study.
+          A mix of experiments, projects, and explorations — click any card to dig in.
         </p>
 
         {projects.length === 0 ? (

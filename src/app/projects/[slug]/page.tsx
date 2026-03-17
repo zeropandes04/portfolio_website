@@ -20,7 +20,7 @@ export async function generateMetadata({
   const project = await getProjectBySlug(slug);
   if (!project) return {};
   return {
-    title: `${project.title} — Case Study`,
+    title: `${project.title}`,
     description: project.description,
     openGraph: {
       title: project.title,
@@ -109,7 +109,7 @@ export default async function ProjectPage({
             <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
               <path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            All case studies
+            All projects
           </Link>
         </div>
       </div>
