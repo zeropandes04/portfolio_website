@@ -32,7 +32,6 @@ export function PyramidSection({
           {label}
         </span>
       </div>
-      <p className="text-sm text-neutral-500 mb-4 italic">{description}</p>
       <div className="prose-content">
         <NotionBlocks blocks={blocks} />
       </div>
