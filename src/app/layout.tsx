@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Lato } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import { Header } from "@/components/Header";
 import { profile } from "@/lib/profile";
 import "./globals.css";
 
-const lato = Lato({
+const openSans = Open_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "700", "900"],
+  weight: ["300", "400", "600", "700", "800"],
   display: "swap",
 });
 
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={lato.className}>
+      <body className={openSans.className}>
         <Header />
         <main className="pt-14">{children}</main>
         <footer className="border-t border-neutral-100 py-8 mt-16">
