@@ -21,14 +21,6 @@ export default async function HomePage() {
           <p className="text-xl text-neutral-500 leading-relaxed mb-8">
             {profile.bio}
           </p>
-          <div className="flex items-center gap-4">
-            <a
-              href="#work"
-              className="btn-primary text-white px-6 py-3 rounded-full font-semibold transition-opacity hover:opacity-80"
-            >
-              View my work
-            </a>
-          </div>
         </div>
       </section>
 
