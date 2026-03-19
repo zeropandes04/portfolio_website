@@ -27,7 +27,7 @@ export function ProjectCard({ project, index }: Props) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group grid grid-cols-1 md:grid-cols-[280px_1fr] gap-0 md:gap-8 items-center py-10 border-b border-neutral-100 hover:border-neutral-200 transition-all"
+      className="group grid grid-cols-1 md:grid-cols-[280px_1fr] gap-0 md:gap-8 items-center py-10 border-b border-neutral-100 hover:border-neutral-200 rounded-2xl hover:bg-neutral-50 px-4 -mx-4 transition-all"
     >
       {/* Cover / Thumbnail */}
       <div
@@ -56,7 +56,7 @@ export function ProjectCard({ project, index }: Props) {
         <p className="text-neutral-500 leading-relaxed mb-4 max-w-lg">
           {project.description}
         </p>
-        <span className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-700 border border-neutral-300 rounded-full px-4 py-1.5 transition-all group-hover:border-[#3D79F2] group-hover:text-[#3D79F2]">
+        <span className="inline-flex items-center gap-2 text-sm font-semibold text-white rounded-full px-4 py-1.5 transition-all" style={{ backgroundColor: "var(--brand-blue)" }}>
           View project
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
