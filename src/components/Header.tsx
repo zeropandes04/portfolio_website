@@ -19,12 +19,9 @@ export function Header() {
           <Link href="/about" className="text-neutral-500 hover:text-neutral-900 transition-colors">
             About
           </Link>
-          <a
-            href={`mailto:${profile.email}`}
-            className="text-neutral-500 hover:text-neutral-900 transition-colors"
-          >
+          <Link href="/contact" className="text-neutral-500 hover:text-neutral-900 transition-colors">
             Contact
-          </a>
+          </Link>
           <a
             href={profile.linkedin}
             target="_blank"
