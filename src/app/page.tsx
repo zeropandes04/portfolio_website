@@ -10,7 +10,7 @@ export default async function HomePage() {
   return (
     <div className="max-w-5xl mx-auto px-6">
       {/* ── Hero / Profile ─────────────────────────────────────────────── */}
-      <section className="py-20 md:py-28">
+      <section className="py-12 md:py-16">
         <div>
           <h1 className="text-5xl md:text-6xl font-bold text-neutral-900 leading-tight mb-6">
             Hi, I&apos;m{" "}
