@@ -17,6 +17,12 @@ export function Header() {
             Work
           </Link>
           <a
+            href={`mailto:${profile.email}`}
+            className="text-neutral-500 hover:text-neutral-900 transition-colors"
+          >
+            Contact
+          </a>
+          <a
             href={profile.linkedin}
             target="_blank"
             rel="noopener noreferrer"
