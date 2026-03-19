@@ -1,5 +1,4 @@
 import { getProjects } from "@/lib/notion";
-import { profile } from "@/lib/profile";
 import { ProjectCard } from "@/components/ProjectCard";
 
 export const revalidate = 60; // ISR: revalidate every 60 seconds
@@ -9,23 +8,8 @@ export default async function HomePage() {
 
   return (
     <div className="max-w-5xl mx-auto px-6">
-      {/* ── Hero / Profile ─────────────────────────────────────────────── */}
-      <section className="py-12 md:py-16">
-        <div>
-          <h1 className="text-5xl md:text-6xl font-bold text-neutral-900 leading-tight mb-6">
-            Hi, I&apos;m{" "}
-            <span style={{ color: "var(--brand-blue)" }}>
-              {profile.name.split(" ")[0]}
-            </span>
-          </h1>
-          <p className="text-xl text-neutral-500 leading-relaxed mb-8">
-            {profile.bio}
-          </p>
-        </div>
-      </section>
-
       {/* ── Projects / Case Studies ─────────────────────────────────────── */}
-      <section id="work" className="pb-24">
+      <section id="work" className="py-12 pb-24">
         <div className="mb-2">
           <h2 className="text-3xl font-bold text-neutral-900">Projects &amp; explorations</h2>
         </div>

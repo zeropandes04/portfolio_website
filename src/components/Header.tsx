@@ -16,6 +16,9 @@ export function Header() {
           <Link href="/" className="text-neutral-500 hover:text-neutral-900 transition-colors">
             Work
           </Link>
+          <Link href="/about" className="text-neutral-500 hover:text-neutral-900 transition-colors">
+            About
+          </Link>
           <a
             href={`mailto:${profile.email}`}
             className="text-neutral-500 hover:text-neutral-900 transition-colors"
