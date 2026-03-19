@@ -38,10 +38,10 @@ export default function AboutPage() {
         </span>
       </h1>
       <p className="text-xl text-neutral-500 leading-relaxed mb-4">
-        I&apos;m a Product Manager at Ocado Technology with roots in UX design — which means I care as much about how something feels as whether it ships on time. I work at the intersection of customer insight, data, and cross-functional teams to turn ambiguous problems into products people actually use.
+        I&apos;m a Product Manager with roots in UX and product design. I work at the intersection of customer insights and data to turn ambiguous problems into products people care about.
       </p>
       <p className="text-xl text-neutral-500 leading-relaxed mb-16">
-        Outside of work, I recharge by traveling to new places and logging miles on the bike.
+        I recharge my batteries by logging miles on my bike.
       </p>
 
       {/* Experience */}
