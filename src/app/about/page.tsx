@@ -64,6 +64,21 @@ export default function AboutPage() {
         ))}
       </div>
 
+      {/* Education */}
+      <h2 className="text-xs font-bold uppercase tracking-widest text-neutral-400 mt-14 mb-8">Education</h2>
+      <div className="flex flex-col gap-6">
+        {[
+          { school: "Elisava School of Design and Engineering", degree: "Master's in Design and Internet Projects Management" },
+          { school: "Universitat Ramon Llull", degree: "MSc in Advertising Strategies and Creativity, Advertising and Applied Communication" },
+          { school: "University of the Arts London", degree: "BA (Hons) Graphic and Media Design" },
+        ].map((entry) => (
+          <div key={entry.school}>
+            <p className="font-semibold text-neutral-900">{entry.school}</p>
+            <p className="text-neutral-500 mt-0.5">{entry.degree}</p>
+          </div>
+        ))}
+      </div>
+
       {/* CTA */}
       <div className="mt-16 pt-10 border-t border-neutral-100">
         <a
