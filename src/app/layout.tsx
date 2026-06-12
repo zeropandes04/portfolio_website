@@ -37,18 +37,20 @@ export default function RootLayout({
             </span>
             <div className="flex items-center gap-4">
               <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-neutral-700 transition-colors"
+              >
+                GitHub
+              </a>
+              <a
                 href={profile.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-neutral-700 transition-colors"
               >
                 LinkedIn
-              </a>
-              <a
-                href={`mailto:${profile.email}`}
-                className="hover:text-neutral-700 transition-colors"
-              >
-                {profile.email}
               </a>
             </div>
           </div>

@@ -19,9 +19,14 @@ export function Header() {
           <Link href="/about" className="text-neutral-500 hover:text-neutral-900 transition-colors">
             About
           </Link>
-          <Link href="/contact" className="text-neutral-500 hover:text-neutral-900 transition-colors">
-            Contact
-          </Link>
+          <a
+            href={profile.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-neutral-900 text-white px-4 py-1.5 rounded-full text-xs font-semibold transition-opacity hover:opacity-80"
+          >
+            GitHub
+          </a>
           <a
             href={profile.linkedin}
             target="_blank"
