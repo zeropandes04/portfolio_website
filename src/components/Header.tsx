@@ -31,7 +31,7 @@ export function Header() {
             href={profile.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white px-4 py-1.5 rounded-full text-xs font-semibold transition-opacity hover:opacity-80"
+            className="-ml-2.5 text-white px-4 py-1.5 rounded-full text-xs font-semibold transition-opacity hover:opacity-80"
             style={{ backgroundColor: "var(--brand-blue)" }}
           >
             LinkedIn
