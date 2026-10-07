@@ -18,7 +18,7 @@ function RichTextSpan({ item }: { item: RichText }) {
 
   if (item.annotations.code) {
     content = (
-      <code className="bg-neutral-100 px-1.5 py-0.5 rounded text-sm font-mono" style={{ color: "var(--brand-coral)" }}>
+      <code className="bg-surface border border-line px-1.5 py-0.5 rounded-md text-[0.9em] font-mono text-fg">
         {content}
       </code>
     );
@@ -35,8 +35,7 @@ function RichTextSpan({ item }: { item: RichText }) {
         href={item.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="underline hover:opacity-70 transition-opacity"
-        style={{ color: "var(--brand-blue)" }}
+        className="text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent transition-colors"
       >
         {content}
       </a>
@@ -63,35 +62,35 @@ export function NotionBlock({ block }: { block: AnyBlock }) {
   switch (block.type) {
     case "paragraph":
       return (
-        <p className="text-neutral-700 leading-relaxed mb-4">
+        <p>
           <RichTextContent rich={block.paragraph.rich_text} />
         </p>
       );
 
     case "heading_1":
       return (
-        <h1 className="text-3xl font-bold text-neutral-900 mt-10 mb-4">
+        <h1>
           <RichTextContent rich={block.heading_1.rich_text} />
         </h1>
       );
 
     case "heading_2":
       return (
-        <h2 className="text-2xl font-semibold text-neutral-800 mt-8 mb-3">
+        <h2>
           <RichTextContent rich={block.heading_2.rich_text} />
         </h2>
       );
 
     case "heading_3":
       return (
-        <h3 className="text-xl font-semibold text-neutral-800 mt-6 mb-2">
+        <h3>
           <RichTextContent rich={block.heading_3.rich_text} />
         </h3>
       );
 
     case "bulleted_list_item":
       return (
-        <li className="text-neutral-700 leading-relaxed mb-1 ml-4 list-disc">
+        <li className="mb-1.5 ml-5 pl-1 list-disc">
           <RichTextContent rich={block.bulleted_list_item.rich_text} />
           {block.children && block.children.length > 0 && (
             <ul className="ml-4 mt-1">
@@ -105,7 +104,7 @@ export function NotionBlock({ block }: { block: AnyBlock }) {
 
     case "numbered_list_item":
       return (
-        <li className="text-neutral-700 leading-relaxed mb-1 ml-4 list-decimal">
+        <li className="mb-1.5 ml-5 pl-1 list-decimal">
           <RichTextContent rich={block.numbered_list_item.rich_text} />
           {block.children && block.children.length > 0 && (
             <ol className="ml-4 mt-1">
@@ -119,25 +118,25 @@ export function NotionBlock({ block }: { block: AnyBlock }) {
 
     case "quote":
       return (
-        <blockquote className="pl-5 py-1 my-4 text-neutral-600 italic rounded-r-lg" style={{ borderLeft: "4px solid var(--brand-yellow)", backgroundColor: "#fef9ee" }}>
+        <blockquote className="my-8 border-l-2 border-accent pl-6 text-xl leading-relaxed text-fg tracking-tight">
           <RichTextContent rich={block.quote.rich_text} />
         </blockquote>
       );
 
     case "callout":
       return (
-        <div className="flex gap-3 border border-neutral-200 rounded-xl p-4 my-4" style={{ backgroundColor: "var(--brand-light)" }}>
+        <div className="flex gap-4 border border-line bg-surface rounded-2xl p-5 my-6">
           {block.callout.icon?.type === "emoji" && (
-            <span className="text-2xl">{block.callout.icon.emoji}</span>
+            <span className="text-xl leading-7">{block.callout.icon.emoji}</span>
           )}
-          <p className="text-neutral-700 leading-relaxed">
+          <p className="!mb-0">
             <RichTextContent rich={block.callout.rich_text} />
           </p>
         </div>
       );
 
     case "divider":
-      return <hr className="border-neutral-200 my-8" />;
+      return <hr className="border-line my-10" />;
 
     case "image": {
       const src =
@@ -152,10 +151,10 @@ export function NotionBlock({ block }: { block: AnyBlock }) {
           <img
             src={src}
             alt={caption.map((c: RichText) => c.plain_text).join("") || ""}
-            className="rounded-xl w-full object-cover"
+            className="rounded-2xl ring-1 ring-line w-full object-cover"
           />
           {caption.length > 0 && (
-            <figcaption className="mt-2 text-center text-sm text-neutral-500">
+            <figcaption className="mt-3 text-center text-sm text-subtle">
               <RichTextContent rich={caption} />
             </figcaption>
           )}
@@ -174,7 +173,7 @@ export function NotionBlock({ block }: { block: AnyBlock }) {
           ? url.split("/").pop()
           : new URL(url).searchParams.get("v");
         return (
-          <div className="my-8 aspect-video rounded-xl overflow-hidden">
+          <div className="my-8 aspect-video rounded-2xl overflow-hidden ring-1 ring-line">
             <iframe
               src={`https://www.youtube.com/embed/${videoId}`}
               className="w-full h-full"
@@ -186,14 +185,14 @@ export function NotionBlock({ block }: { block: AnyBlock }) {
       }
       return (
         <div className="my-8">
-          <video src={url} controls className="rounded-xl w-full" />
+          <video src={url} controls className="rounded-2xl w-full ring-1 ring-line" />
         </div>
       );
     }
 
     case "code":
       return (
-        <pre className="bg-neutral-900 text-neutral-100 rounded-xl p-5 my-6 overflow-x-auto text-sm font-mono">
+        <pre className="bg-[#0f0f11] text-neutral-100 ring-1 ring-line rounded-2xl p-5 my-6 overflow-x-auto text-sm leading-relaxed font-mono">
           <code>
             <RichTextContent rich={block.code.rich_text} />
           </code>
@@ -202,12 +201,12 @@ export function NotionBlock({ block }: { block: AnyBlock }) {
 
     case "toggle":
       return (
-        <details className="my-3 border border-neutral-200 rounded-lg">
-          <summary className="px-4 py-3 cursor-pointer font-medium text-neutral-800 hover:bg-neutral-50">
+        <details className="group my-3 border border-line rounded-2xl open:bg-surface/50 transition-colors">
+          <summary className="px-5 py-3.5 cursor-pointer font-medium text-fg rounded-2xl hover:bg-surface">
             <RichTextContent rich={block.toggle.rich_text} />
           </summary>
           {block.children && (
-            <div className="px-4 pb-3 pt-1">
+            <div className="px-5 pb-4 pt-1">
               <NotionBlocks blocks={block.children} />
             </div>
           )}
@@ -230,7 +229,7 @@ export function NotionBlock({ block }: { block: AnyBlock }) {
 
     case "embed":
       return (
-        <div className="my-8 rounded-xl overflow-hidden border border-neutral-200 aspect-video">
+        <div className="my-8 rounded-2xl overflow-hidden ring-1 ring-line aspect-video">
           <iframe src={block.embed.url} className="w-full h-full" />
         </div>
       );

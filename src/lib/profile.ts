@@ -4,6 +4,7 @@ export const profile = {
   bio:
     process.env.NEXT_PUBLIC_PROFILE_BIO ||
     "I'm a Product Manager focused on turning complex problems into useful products through data, customer insight, experimentation, and systems thinking.",
+  focus: ["Product Management", "User Experience", "AI Systems"],
   linkedin: "https://www.linkedin.com/in/xpuig1/",
   github: "https://github.com/zeropandes04",
   avatarUrl: "/avatar.jpg", // Place your photo at public/avatar.jpg

@@ -1,66 +1,69 @@
 import Link from "next/link";
 import { Project } from "@/lib/notion";
-
-const COLOR_MAP: Record<string, { bg: string; icon: string }> = {
-  green: { bg: "bg-emerald-500", icon: "🧾" },
-  blue: { bg: "bg-sky-500", icon: "📊" },
-  yellow: { bg: "bg-amber-400", icon: "🌍" },
-  red: { bg: "bg-rose-500", icon: "🏠" },
-  purple: { bg: "bg-violet-500", icon: "💡" },
-  orange: { bg: "bg-orange-500", icon: "⚡" },
-  pink: { bg: "bg-pink-500", icon: "✨" },
-  gray: { bg: "bg-neutral-500", icon: "📁" },
-};
-
-function getColor(color: string) {
-  return COLOR_MAP[color] ?? COLOR_MAP.blue;
-}
+import { coverGradient, getProjectColor } from "@/lib/colors";
+import { ArrowUpRight } from "./Icons";
 
 interface Props {
   project: Project;
   index: number;
+  featured?: boolean;
 }
 
-export function ProjectCard({ project, index }: Props) {
-  const { bg, icon } = getColor(project.color);
+export function ProjectCard({ project, index, featured = false }: Props) {
+  const { hex, icon } = getProjectColor(project.color);
 
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group grid grid-cols-1 md:grid-cols-[280px_1fr] gap-0 md:gap-8 items-center py-10 border-b border-neutral-100 hover:border-neutral-200 rounded-2xl hover:bg-neutral-50 px-4 -mx-4 transition-all"
+      className={`group block rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${
+        featured ? "md:col-span-2" : ""
+      }`}
     >
-      {/* Cover / Thumbnail */}
+      {/* Cover */}
       <div
-        className={`relative h-52 md:h-44 rounded-2xl overflow-hidden flex items-center justify-center flex-shrink-0 ${bg}`}
+        className={`relative overflow-hidden rounded-3xl ring-1 ring-line bg-surface ${
+          featured ? "aspect-[16/10] md:aspect-[21/9]" : "aspect-[16/10]"
+        }`}
+        style={project.coverUrl ? undefined : { background: coverGradient(hex) }}
       >
         {project.coverUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={project.coverUrl}
-            alt={project.title}
-            className="w-full h-full object-cover"
+            alt=""
+            loading={index < 2 ? "eager" : "lazy"}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           />
         ) : (
-          <span className="text-6xl opacity-80">{icon}</span>
+          <span className="absolute inset-0 grid place-items-center text-6xl transition-transform duration-700 ease-out group-hover:scale-110">
+            {icon}
+          </span>
         )}
       </div>
 
-      {/* Content */}
-      <div className="pt-4 md:pt-0">
-        <span className="text-xs font-semibold uppercase tracking-widest text-neutral-400 mb-2 block">
-          Project {String(index + 1).padStart(2, "0")}
-        </span>
-        <h3 className="text-2xl font-bold text-neutral-900 mb-2 transition-colors" style={{ ["--tw-text-opacity" as string]: "1" }}>
-          <span className="group-hover:text-[#3D79F2] transition-colors">{project.title}</span>
-        </h3>
-        <p className="text-neutral-500 leading-relaxed mb-4 max-w-lg">
-          {project.description}
-        </p>
-        <span className="inline-flex items-center gap-2 text-sm font-semibold text-white rounded-full px-4 py-1.5 transition-all" style={{ backgroundColor: "var(--brand-blue)" }}>
-          View project
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+      {/* Meta */}
+      <div className="mt-5 flex items-start justify-between gap-6">
+        <div className="min-w-0">
+          <div className="flex items-baseline gap-3">
+            <span className="font-mono text-xs text-subtle">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <h3
+              className={`font-semibold tracking-tight text-fg transition-colors group-hover:text-accent ${
+                featured ? "text-2xl md:text-3xl" : "text-xl"
+              }`}
+            >
+              {project.title}
+            </h3>
+          </div>
+          {project.description && (
+            <p className={`mt-2 text-muted leading-relaxed line-clamp-2 ${featured ? "max-w-2xl md:text-lg" : ""}`}>
+              {project.description}
+            </p>
+          )}
+        </div>
+        <span className="mt-0.5 grid place-items-center size-10 shrink-0 rounded-full border border-line text-fg transition-all group-hover:bg-fg group-hover:text-bg group-hover:border-fg">
+          <ArrowUpRight className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </span>
       </div>
     </Link>

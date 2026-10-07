@@ -1,21 +1,46 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 
-  /* Brand palette */
-  --brand-blue: #3D79F2;
-  --brand-blue-dark: #2a5fd4;
-  --brand-yellow: #F2BA52;
-  --brand-orange: #F29C50;
-  --brand-coral: #F2784B;
-  --brand-light: #F2F2F2;
+  /* Surface tokens */
+  --bg: #ffffff;
+  --fg: #0b0b0c;
+  --muted: #5f6368;
+  --subtle: #9aa0a6;
+  --line: #ebebeb;
+  --surface: #f6f6f5;
+
+  /* Brand */
+  --accent: #3d79f2;
+  --accent-soft: #eef3fe;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #0b0b0c;
+    --fg: #f2f2f2;
+    --muted: #a1a1aa;
+    --subtle: #6b6b73;
+    --line: #232326;
+    --surface: #151517;
+    --accent: #6b9bf7;
+    --accent-soft: #16213a;
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 html {
@@ -23,20 +48,40 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: inherit;
+  background: var(--bg);
+  color: var(--fg);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Brand button */
-.btn-primary {
-  background-color: var(--brand-blue);
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Subtle entrance for page content */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.rise {
+  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rise { animation: none; }
+  *, *::before, *::after { transition-duration: 0s !important; }
 }
 
 /* Prose content styles for Notion blocks */
-.prose-content h1 { font-size: 1.875rem; font-weight: 700; color: #111827; margin-top: 2.5rem; margin-bottom: 1rem; }
-.prose-content h2 { font-size: 1.5rem; font-weight: 600; color: #1f2937; margin-top: 2rem; margin-bottom: 0.75rem; }
-.prose-content h3 { font-size: 1.25rem; font-weight: 600; color: #1f2937; margin-top: 1.5rem; margin-bottom: 0.5rem; }
-.prose-content p { color: #374151; line-height: 1.75; margin-bottom: 1rem; }
-.prose-content ul, .prose-content ol { margin-top: 1rem; margin-bottom: 1rem; }
+.prose-content { font-size: 1.0625rem; line-height: 1.75; color: var(--muted); }
+.prose-content strong { color: var(--fg); font-weight: 600; }
+.prose-content h1 { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.02em; color: var(--fg); margin-top: 2.5rem; margin-bottom: 1rem; }
+.prose-content h2 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; color: var(--fg); margin-top: 2rem; margin-bottom: 0.75rem; }
+.prose-content h3 { font-size: 1.125rem; font-weight: 600; color: var(--fg); margin-top: 1.75rem; margin-bottom: 0.5rem; }
+.prose-content p { margin-bottom: 1.1rem; }
+.prose-content ul, .prose-content ol { margin-top: 1rem; margin-bottom: 1.25rem; }
+.prose-content li::marker { color: var(--subtle); }
+.prose-content > :first-child { margin-top: 0; }

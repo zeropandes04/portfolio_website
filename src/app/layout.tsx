@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { profile } from "@/lib/profile";
 import "./globals.css";
 
-const openSans = Open_Sans({
+const geistSans = Geist({
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700", "800"],
+  variable: "--font-geist-sans",
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
@@ -26,21 +32,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={openSans.className}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className="font-sans min-h-screen flex flex-col">
         <Header />
-        <main className="pt-14">{children}</main>
-        <footer className="border-t border-neutral-100 py-8 mt-16">
-          <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-neutral-400">
+        <main className="flex-1">{children}</main>
+        <footer className="border-t border-line mt-24">
+          <div className="max-w-5xl mx-auto px-6 py-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-sm text-muted">
             <span>
-              {profile.name} &copy; {new Date().getFullYear()}
+              &copy; {new Date().getFullYear()} {profile.name}
             </span>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
               <a
                 href={profile.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-neutral-700 transition-colors"
+                className="hover:text-fg transition-colors"
               >
                 GitHub
               </a>
@@ -48,7 +54,7 @@ export default function RootLayout({
                 href={profile.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-neutral-700 transition-colors"
+                className="hover:text-fg transition-colors"
               >
                 LinkedIn
               </a>

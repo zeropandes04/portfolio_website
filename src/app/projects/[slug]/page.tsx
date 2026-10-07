@@ -1,23 +1,11 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectBySlug, getProjects } from "@/lib/notion";
+import { coverGradient, getProjectColor, slugify } from "@/lib/colors";
 import { PyramidSection } from "@/components/PyramidSection";
 import { NotionBlocks } from "@/components/NotionBlock";
-
-const COLOR_HEX: Record<string, string> = {
-  green:  "#10b981",
-  blue:   "#0ea5e9",
-  yellow: "#fbbf24",
-  red:    "#f43f5e",
-  purple: "#8b5cf6",
-  orange: "#f97316",
-  pink:   "#ec4899",
-  gray:   "#6b7280",
-};
-
-function getBannerColor(color: string): string {
-  return COLOR_HEX[color] ?? COLOR_HEX.blue;
-}
+import { TableOfContents } from "@/components/TableOfContents";
+import { ArrowLeft, ArrowRight } from "@/components/Icons";
 
 export const dynamic = "force-dynamic";
 
@@ -51,84 +39,128 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const [project, projects] = await Promise.all([getProjectBySlug(slug), getProjects()]);
 
   if (!project) notFound();
 
+  const { hex } = getProjectColor(project.color);
+
+  // Stable, unique anchor ids for each H2 section
+  const seen = new Map<string, number>();
+  const sections = project.sections
+    .filter((s) => s.blocks.length > 0)
+    .map((s, i) => {
+      const base = slugify(s.label) || `section-${i + 1}`;
+      const count = seen.get(base) ?? 0;
+      seen.set(base, count + 1);
+      return { ...s, id: count ? `${base}-${count + 1}` : base };
+    });
+
+  const position = projects.findIndex((p) => p.slug === project.slug);
+  const next = projects.length > 1 && position !== -1 ? projects[(position + 1) % projects.length] : null;
+
   return (
-    <div>
-      {/* ── Hero Banner ─────────────────────────────────────────────────── */}
-      <div
-        className="relative h-64 md:h-96 overflow-hidden"
-        style={{ backgroundColor: getBannerColor(project.color) }}
-      >
-        {project.coverUrl && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={project.coverUrl}
-            alt={project.title}
-            className="w-full h-full object-cover opacity-60"
-          />
+    <article>
+      {/* ── Header ──────────────────────────────────────────────────────── */}
+      <header className="rise max-w-5xl mx-auto px-6 pt-10 md:pt-16">
+        <Link
+          href="/#work"
+          className="group inline-flex items-center gap-2 text-sm text-muted hover:text-fg transition-colors"
+        >
+          <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-0.5" />
+          All projects
+        </Link>
+        <h1 className="mt-8 text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] text-fg max-w-4xl">
+          {project.title}
+        </h1>
+        {project.description && (
+          <p className="mt-6 text-lg md:text-xl text-muted leading-relaxed max-w-2xl">
+            {project.description}
+          </p>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 max-w-4xl mx-auto px-6 pb-10">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-white/70 text-sm mb-4 hover:text-white transition-colors"
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Back to work
-          </Link>
-          <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-            {project.title}
-          </h1>
-          {project.description && (
-            <p className="mt-3 text-lg text-white/70 leading-relaxed">
-              {project.description}
-            </p>
+      </header>
+
+      {/* ── Cover ───────────────────────────────────────────────────────── */}
+      <div className="max-w-5xl mx-auto px-6 mt-12 md:mt-16">
+        <div
+          className={`relative overflow-hidden rounded-3xl ring-1 ring-line ${
+            project.coverUrl ? "aspect-[16/9]" : "h-24 md:h-32"
+          }`}
+          style={{ background: coverGradient(hex) }}
+        >
+          {project.coverUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={project.coverUrl} alt="" className="absolute inset-0 w-full h-full object-cover" />
           )}
         </div>
       </div>
 
-      {/* ── Content ──────────────────────────────────────────────────────── */}
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        {/* Intro blocks (before first H2) */}
-        {project.intro.length > 0 && (
-          <div className="prose-content mb-8">
-            <NotionBlocks blocks={project.intro} />
-          </div>
+      {/* ── Content ─────────────────────────────────────────────────────── */}
+      <div
+        className={`max-w-5xl mx-auto px-6 py-16 md:py-20 ${
+          sections.length > 1 ? "lg:grid lg:grid-cols-[180px_minmax(0,1fr)] lg:gap-16" : ""
+        }`}
+      >
+        {sections.length > 1 && (
+          <aside className="hidden lg:block">
+            <TableOfContents items={sections.map(({ id, label }) => ({ id, label }))} />
+          </aside>
         )}
 
-        {/* H2-delimited sections */}
-        {project.sections.length > 0 ? (
-          project.sections.map((section) => (
-            <PyramidSection
-              key={section.label}
-              label={section.label}
-              blocks={section.blocks}
-            />
-          ))
-        ) : (
-          <div className="prose-content">
-            <NotionBlocks blocks={project.allBlocks} />
-          </div>
-        )}
+        <div className="max-w-[68ch]">
+          {/* Intro blocks (before first H2) */}
+          {project.intro.length > 0 && (
+            <div className="prose-content text-lg mb-12">
+              <NotionBlocks blocks={project.intro} />
+            </div>
+          )}
 
-        {/* ── Navigation ───────────────────────────────────────────────── */}
-        <div className="mt-16 pt-8 border-t border-neutral-100">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-neutral-600 font-medium transition-colors hover:opacity-70"
-          >
-            <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
-              <path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            All projects
-          </Link>
+          {/* H2-delimited sections */}
+          {project.sections.length > 0 ? (
+            sections.map((section, i) => (
+              <PyramidSection
+                key={section.id}
+                id={section.id}
+                index={i}
+                label={section.label}
+                blocks={section.blocks}
+              />
+            ))
+          ) : (
+            <div className="prose-content">
+              <NotionBlocks blocks={project.allBlocks} />
+            </div>
+          )}
         </div>
       </div>
-    </div>
+
+      {/* ── Next project ────────────────────────────────────────────────── */}
+      <div className="max-w-5xl mx-auto px-6">
+        {next ? (
+          <Link
+            href={`/projects/${next.slug}`}
+            className="group flex items-center justify-between gap-6 rounded-3xl border border-line bg-surface/60 p-6 md:p-10 transition-colors hover:bg-surface"
+          >
+            <div className="min-w-0">
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-subtle">Next project</p>
+              <p className="mt-3 text-2xl md:text-4xl font-semibold tracking-tight text-fg truncate transition-colors group-hover:text-accent">
+                {next.title}
+              </p>
+            </div>
+            <span className="grid place-items-center size-12 md:size-14 shrink-0 rounded-full bg-fg text-bg transition-transform group-hover:translate-x-1">
+              <ArrowRight size={18} />
+            </span>
+          </Link>
+        ) : (
+          <Link
+            href="/#work"
+            className="group inline-flex items-center gap-2 text-muted hover:text-fg font-medium transition-colors"
+          >
+            <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-0.5" />
+            All projects
+          </Link>
+        )}
+      </div>
+    </article>
   );
 }
