@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { profile } from "@/lib/profile";
 import { GitHubIcon, LinkedInIcon } from "./Icons";
+import { ThemeToggle } from "./ThemeToggle";
 
 const NAV = [
   { href: "/", label: "Work", match: (p: string) => p === "/" || p.startsWith("/projects") },
@@ -63,6 +64,7 @@ export function Header() {
           >
             <LinkedInIcon />
           </a>
+          <ThemeToggle />
         </nav>
       </div>
     </header>

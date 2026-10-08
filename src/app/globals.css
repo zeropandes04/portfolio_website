@@ -16,8 +16,22 @@
   --accent-soft: #eef3fe;
 }
 
+/* Dark tokens: an explicit choice from ThemeToggle (data-theme on <html>)
+   wins; otherwise follow the OS. Keep both blocks in sync. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b0b0c;
+  --fg: #f2f2f2;
+  --muted: #a1a1aa;
+  --subtle: #6b6b73;
+  --line: #232326;
+  --surface: #151517;
+  --accent: #6b9bf7;
+  --accent-soft: #16213a;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     color-scheme: dark;
     --bg: #0b0b0c;
     --fg: #f2f2f2;
@@ -27,6 +41,18 @@
     --surface: #151517;
     --accent: #6b9bf7;
     --accent-soft: #16213a;
+  }
+}
+
+/* `dark:` utilities follow the same rule as the tokens above */
+@custom-variant dark {
+  :root[data-theme="dark"] & {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) & {
+      @slot;
+    }
   }
 }
 
