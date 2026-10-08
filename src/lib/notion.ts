@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { Client, isFullBlock, isFullPage } from "@notionhq/client";
 import {
   BlockObjectResponse,
@@ -120,7 +121,7 @@ function pageToProject(page: PageObjectResponse): Project {
 
 // ─── API functions ────────────────────────────────────────────────────────────
 
-export async function getProjects(): Promise<Project[]> {
+export const getProjects = cache(async (): Promise<Project[]> => {
   const databaseId = process.env.NOTION_PROJECTS_DATABASE_ID;
   if (!databaseId) {
     console.warn("NOTION_PROJECTS_DATABASE_ID not set – returning empty list");
@@ -137,9 +138,10 @@ export async function getProjects(): Promise<Project[]> {
     .filter(isFullPage)
     .map(pageToProject)
     .filter((p) => p.slug);
-}
+});
 
-export async function getProjectBySlug(slug: string): Promise<ProjectDetail | null> {
+// cache(): generateMetadata and the page share one fetch per request
+export const getProjectBySlug = cache(async (slug: string): Promise<ProjectDetail | null> => {
   const databaseId = process.env.NOTION_PROJECTS_DATABASE_ID;
   if (!databaseId) return null;
 
@@ -161,7 +163,7 @@ export async function getProjectBySlug(slug: string): Promise<ProjectDetail | nu
   const { sections, intro } = splitByH2(blocks);
 
   return { ...project, sections, intro, allBlocks: blocks };
-}
+});
 
 async function getAllBlocks(blockId: string): Promise<BlockObjectResponse[]> {
   const blocks: BlockObjectResponse[] = [];
