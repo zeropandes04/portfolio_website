@@ -43,7 +43,7 @@ export default async function ProjectPage({
 
   if (!project) notFound();
 
-  const { hex } = getProjectColor(project.color);
+  const { hex, icon } = getProjectColor(project.color);
 
   // Stable, unique anchor ids for each H2 section
   const seen = new Map<string, number>();
@@ -60,7 +60,8 @@ export default async function ProjectPage({
   const next = projects.length > 1 && position !== -1 ? projects[(position + 1) % projects.length] : null;
 
   return (
-    <article>
+    // --project drives the colour coding (icon tile, section numbers, TOC, quotes)
+    <article style={{ "--project": hex } as React.CSSProperties}>
       {/* ── Header ──────────────────────────────────────────────────────── */}
       <header className="rise max-w-5xl mx-auto px-6 pt-10 md:pt-16">
         <Link
@@ -70,7 +71,14 @@ export default async function ProjectPage({
           <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-0.5" />
           All projects
         </Link>
-        <h1 className="mt-8 text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] text-fg max-w-4xl">
+        <span
+          className="mt-8 grid place-items-center size-14 rounded-2xl ring-1 ring-line text-2xl"
+          style={{ background: coverGradient(hex) }}
+          aria-hidden="true"
+        >
+          {icon}
+        </span>
+        <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] text-fg max-w-4xl">
           {project.title}
         </h1>
         {project.description && (
@@ -80,20 +88,15 @@ export default async function ProjectPage({
         )}
       </header>
 
-      {/* ── Cover ───────────────────────────────────────────────────────── */}
-      <div className="max-w-5xl mx-auto px-6 mt-12 md:mt-16">
-        <div
-          className={`relative overflow-hidden rounded-3xl ring-1 ring-line ${
-            project.coverUrl ? "aspect-[16/9]" : "h-24 md:h-32"
-          }`}
-          style={{ background: coverGradient(hex) }}
-        >
-          {project.coverUrl && (
-            // eslint-disable-next-line @next/next/no-img-element
+      {/* ── Cover (only when the project has a real image) ───────────────── */}
+      {project.coverUrl && (
+        <div className="max-w-5xl mx-auto px-6 mt-12 md:mt-16">
+          <div className="relative aspect-[16/9] overflow-hidden rounded-3xl ring-1 ring-line bg-surface">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={project.coverUrl} alt="" className="absolute inset-0 w-full h-full object-cover" />
-          )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ── Content ─────────────────────────────────────────────────────── */}
       <div
@@ -141,11 +144,20 @@ export default async function ProjectPage({
             href={`/projects/${next.slug}`}
             className="group flex items-center justify-between gap-6 rounded-3xl border border-line bg-surface/60 p-6 md:p-10 transition-colors hover:bg-surface"
           >
-            <div className="min-w-0">
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-subtle">Next project</p>
-              <p className="mt-3 text-2xl md:text-4xl font-semibold tracking-tight text-fg truncate transition-colors group-hover:text-accent">
-                {next.title}
-              </p>
+            <div className="flex items-center gap-5 min-w-0">
+              <span
+                className="hidden sm:grid place-items-center size-16 md:size-20 shrink-0 rounded-2xl ring-1 ring-line text-3xl transition-transform group-hover:scale-105"
+                style={{ background: coverGradient(getProjectColor(next.color).hex) }}
+                aria-hidden="true"
+              >
+                {getProjectColor(next.color).icon}
+              </span>
+              <div className="min-w-0">
+                <p className="font-mono text-xs uppercase tracking-[0.18em] text-subtle">Next project</p>
+                <p className="mt-3 text-2xl md:text-4xl font-semibold tracking-tight text-fg truncate transition-colors group-hover:text-accent">
+                  {next.title}
+                </p>
+              </div>
             </div>
             <span className="grid place-items-center size-12 md:size-14 shrink-0 rounded-full bg-fg text-bg transition-transform group-hover:translate-x-1">
               <ArrowRight size={18} />

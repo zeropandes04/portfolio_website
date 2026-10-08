@@ -43,7 +43,7 @@ export function TableOfContents({ items }: Props) {
                 aria-current={isActive ? "location" : undefined}
                 className={`block -ml-px border-l py-1.5 pl-4 text-sm transition-colors ${
                   isActive
-                    ? "border-accent text-fg font-medium"
+                    ? "border-[var(--project,var(--accent))] text-fg font-medium"
                     : "border-transparent text-muted hover:text-fg"
                 }`}
               >

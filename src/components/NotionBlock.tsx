@@ -118,7 +118,7 @@ export function NotionBlock({ block }: { block: AnyBlock }) {
 
     case "quote":
       return (
-        <blockquote className="my-8 border-l-2 border-accent pl-6 text-xl leading-relaxed text-fg tracking-tight">
+        <blockquote className="my-8 border-l-2 border-[var(--project,var(--accent))] pl-6 text-xl leading-relaxed text-fg tracking-tight">
           <RichTextContent rich={block.quote.rich_text} />
         </blockquote>
       );
