@@ -4,7 +4,7 @@ const PROJECT_COLORS: Record<string, { hex: string; icon: string }> = {
   green: { hex: "#10b981", icon: "🧾" },
   blue: { hex: "#3d79f2", icon: "📊" },
   yellow: { hex: "#f2ba52", icon: "🌍" },
-  red: { hex: "#f43f5e", icon: "🏠" },
+  red: { hex: "#f43f5e", icon: "💍" },
   purple: { hex: "#8b5cf6", icon: "💡" },
   orange: { hex: "#f29c50", icon: "⚡" },
   pink: { hex: "#ec4899", icon: "✨" },
