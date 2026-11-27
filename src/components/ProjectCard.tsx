@@ -23,7 +23,7 @@ export function ProjectCard({ project, index, featured = false }: Props) {
       {/* Cover */}
       <div
         className={`relative overflow-hidden rounded-3xl ring-1 ring-line bg-surface ${
-          featured ? "aspect-[16/10] md:aspect-[21/9]" : "aspect-[16/10]"
+          featured ? "h-32 md:h-40" : "h-28 md:h-32"
         }`}
         style={project.coverUrl ? undefined : { background: coverGradient(hex) }}
       >
@@ -36,7 +36,7 @@ export function ProjectCard({ project, index, featured = false }: Props) {
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           />
         ) : (
-          <span className="absolute inset-0 grid place-items-center text-6xl transition-transform duration-700 ease-out group-hover:scale-110">
+          <span className={`absolute inset-0 grid place-items-center ${featured ? "text-5xl" : "text-4xl"} transition-transform duration-700 ease-out group-hover:scale-110`}>
             {icon}
           </span>
         )}
