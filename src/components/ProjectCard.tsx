@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Project } from "@/lib/notion";
-import { coverGradient, getProjectColor } from "@/lib/colors";
+import { coverGradient, getProjectColor, getProjectIcon } from "@/lib/colors";
 import { ArrowUpRight } from "./Icons";
 
 interface Props {
@@ -10,7 +10,8 @@ interface Props {
 }
 
 export function ProjectCard({ project, index, featured = false }: Props) {
-  const { hex, icon } = getProjectColor(project.color);
+  const { hex } = getProjectColor(project.color);
+  const icon = getProjectIcon(project);
 
   return (
     <Link

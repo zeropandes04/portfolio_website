@@ -18,6 +18,7 @@ export interface Project {
   slug: string;
   description: string;
   coverUrl: string | null;
+  icon: string | null; // Notion page icon, emoji only
   color: string;
   order: number;
   published: boolean;
@@ -45,6 +46,10 @@ function getCover(page: PageObjectResponse): string | null {
   if (page.cover.type === "external") return page.cover.external.url;
   if (page.cover.type === "file") return page.cover.file.url;
   return null;
+}
+
+function getIcon(page: PageObjectResponse): string | null {
+  return page.icon?.type === "emoji" ? page.icon.emoji : null;
 }
 
 function getProp(page: PageObjectResponse, name: string) {
@@ -113,6 +118,7 @@ function pageToProject(page: PageObjectResponse): Project {
     slug: getTextProp(page, "Slug"),
     description: getTextProp(page, "Description"),
     coverUrl: getFilesProp(page, "Cover") ?? getCover(page),
+    icon: getIcon(page),
     color: getSelectProp(page, "Color"),
     order: getNumberProp(page, "Order"),
     published: getCheckboxProp(page, "Published"),

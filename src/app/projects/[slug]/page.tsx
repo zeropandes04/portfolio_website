@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectBySlug, getProjects } from "@/lib/notion";
-import { coverGradient, getProjectColor, slugify } from "@/lib/colors";
+import { coverGradient, getProjectColor, getProjectIcon, slugify } from "@/lib/colors";
 import { PyramidSection } from "@/components/PyramidSection";
 import { NotionBlocks } from "@/components/NotionBlock";
 import { TableOfContents } from "@/components/TableOfContents";
@@ -43,7 +43,8 @@ export default async function ProjectPage({
 
   if (!project) notFound();
 
-  const { hex, icon } = getProjectColor(project.color);
+  const { hex } = getProjectColor(project.color);
+  const icon = getProjectIcon(project);
 
   // Stable, unique anchor ids for each H2 section
   const seen = new Map<string, number>();
@@ -150,7 +151,7 @@ export default async function ProjectPage({
                 style={{ background: coverGradient(getProjectColor(next.color).hex) }}
                 aria-hidden="true"
               >
-                {getProjectColor(next.color).icon}
+                {getProjectIcon(next)}
               </span>
               <div className="min-w-0">
                 <p className="font-mono text-xs uppercase tracking-[0.18em] text-subtle">Next project</p>
