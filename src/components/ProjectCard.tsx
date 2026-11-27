@@ -17,13 +17,13 @@ export function ProjectCard({ project, index, featured = false }: Props) {
     <Link
       href={`/projects/${project.slug}`}
       className={`group block rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${
-        featured ? "md:col-span-2" : ""
+        featured ? "sm:col-span-2" : ""
       }`}
     >
       {/* Cover */}
       <div
         className={`relative overflow-hidden rounded-3xl ring-1 ring-line bg-surface ${
-          featured ? "h-32 md:h-40" : "h-28 md:h-32"
+          "h-40"
         }`}
         style={project.coverUrl ? undefined : { background: coverGradient(hex) }}
       >

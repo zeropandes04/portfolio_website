@@ -81,13 +81,13 @@ export default async function HomePage() {
         {projects.length === 0 ? (
           <EmptyState />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12">
             {projects.map((project, i) => (
               <ProjectCard
                 key={project.id}
                 project={project}
                 index={i}
-                featured={i === 0 && projects.length !== 2}
+                featured={i === 0}
               />
             ))}
           </div>
