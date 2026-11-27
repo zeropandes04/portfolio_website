@@ -40,23 +40,21 @@ export function ProjectCard({ project, index, featured = false }: Props) {
             {icon}
           </span>
         )}
+        <span className="absolute top-3 left-3 rounded-full bg-bg/70 backdrop-blur px-2.5 py-1 font-mono text-xs text-muted">
+          {String(index + 1).padStart(2, "0")}
+        </span>
       </div>
 
       {/* Meta */}
       <div className="mt-5 flex items-start justify-between gap-6">
         <div className="min-w-0">
-          <div className="flex items-baseline gap-3">
-            <span className="font-mono text-xs text-subtle">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <h3
-              className={`font-semibold tracking-tight text-fg transition-colors group-hover:text-accent ${
-                featured ? "text-xl md:text-3xl" : "text-xl"
-              }`}
-            >
-              {project.title}
-            </h3>
-          </div>
+          <h3
+            className={`font-semibold tracking-tight text-fg transition-colors group-hover:text-accent ${
+              featured ? "text-xl md:text-3xl" : "text-xl"
+            }`}
+          >
+            {project.title}
+          </h3>
           {project.description && (
             <p className={`mt-2 text-muted leading-relaxed line-clamp-2 ${featured ? "max-w-2xl md:text-lg" : ""}`}>
               {project.description}
