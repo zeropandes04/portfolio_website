@@ -52,7 +52,7 @@ export function ProjectCard({ project, index, featured = false, fillRow = false 
 
       {/* Meta */}
       <div className="mt-5">
-        <h3 className="text-xl font-semibold tracking-tight text-fg transition-colors group-hover:text-accent">
+        <h3 className="text-xl font-semibold tracking-tight text-fg line-clamp-2 transition-colors group-hover:text-accent">
           {project.title}
         </h3>
         {project.description && (
