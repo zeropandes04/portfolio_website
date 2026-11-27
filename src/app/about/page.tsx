@@ -17,7 +17,7 @@ const experience = [
   {
     company: "eDreams",
     roles: [
-      { title: "Product Designer (UX)", period: "Aug 2017 – May 2019" },
+      { title: "Product Designer", period: "Aug 2017 – May 2019" },
     ],
   },
   {
