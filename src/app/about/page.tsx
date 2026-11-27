@@ -10,7 +10,7 @@ const experience = [
   {
     company: "Ocado Technology",
     roles: [
-      { title: "Product Manager", period: "Jun 2021 – Present" },
+      { title: "Product Manager", period: "Jun 2021 – 2026" },
       { title: "Senior Product Designer", period: "May 2019 – May 2021" },
     ],
   },
