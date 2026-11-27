@@ -17,7 +17,7 @@ export function ProjectCard({ project, index, featured = false }: Props) {
     <Link
       href={`/projects/${project.slug}`}
       className={`group block rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${
-        featured ? "sm:col-span-2" : ""
+        featured ? "md:col-span-2" : ""
       }`}
     >
       {/* Cover */}
@@ -51,7 +51,7 @@ export function ProjectCard({ project, index, featured = false }: Props) {
             </span>
             <h3
               className={`font-semibold tracking-tight text-fg transition-colors group-hover:text-accent ${
-                featured ? "text-2xl md:text-3xl" : "text-xl"
+                featured ? "text-xl md:text-3xl" : "text-xl"
               }`}
             >
               {project.title}

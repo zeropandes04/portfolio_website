@@ -87,7 +87,8 @@ export default async function HomePage() {
                 key={project.id}
                 project={project}
                 index={i}
-                featured={i === 0}
+                // Zigzag: wide, narrow / narrow, wide → positions 1, 4, 5, 8, 9…
+                featured={i % 4 === 0 || i % 4 === 3}
               />
             ))}
           </div>
