@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import { getProjects } from "@/lib/notion";
 import { profile } from "@/lib/profile";
@@ -14,13 +15,19 @@ export default async function HomePage() {
       {/* ── Intro ───────────────────────────────────────────────────────── */}
       <section className="rise pt-12 pb-12 md:pt-20 md:pb-16">
         <p className="font-mono text-xs uppercase tracking-[0.18em] text-subtle mb-6">
-          {profile.focus.join(" · ")}
+          {/* nowrap per item so a line only ever breaks at the separator */}
+          {profile.focus.map((item, i) => (
+            <Fragment key={item}>
+              {i > 0 && " · "}
+              <span className="whitespace-nowrap">{item}</span>
+            </Fragment>
+          ))}
         </p>
         <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.05] text-fg max-w-3xl">
           {profile.name}
           <span className="text-subtle"> — {profile.tagline}</span>
         </h1>
-        <p className="mt-5 text-lg md:text-xl text-muted leading-relaxed max-w-2xl text-pretty">
+        <p className="mt-5 text-lg md:text-xl text-muted leading-relaxed max-w-2xl text-balance">
           {profile.approach}
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -68,7 +75,7 @@ export default async function HomePage() {
               Projects &amp; explorations
             </h2>
             <p className="mt-2 text-muted">
-              Experiments, products and ideas — pick one to dig in.
+              Experiments, products and ideas&nbsp;— pick one to dig in.
             </p>
           </div>
           {projects.length > 0 && (

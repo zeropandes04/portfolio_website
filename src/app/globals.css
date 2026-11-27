@@ -80,6 +80,12 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Avoid orphans: even out heading lines, keep a last word from sitting alone */
+@layer base {
+  h1, h2, h3, h4 { text-wrap: balance; }
+  p, li, blockquote, figcaption { text-wrap: pretty; }
+}
+
 ::selection {
   background: var(--accent);
   color: #fff;
