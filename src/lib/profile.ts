@@ -1,10 +1,12 @@
 export const profile = {
   name: process.env.NEXT_PUBLIC_PROFILE_NAME || "Xavier Puig",
-  title: process.env.NEXT_PUBLIC_PROFILE_TITLE || "Product Manager",
+  title: process.env.NEXT_PUBLIC_PROFILE_TITLE || "Senior Product Manager",
   bio:
     process.env.NEXT_PUBLIC_PROFILE_BIO ||
-    "I'm a Product Manager focused on turning complex problems into useful products through data, customer insight, experimentation, and systems thinking.",
-  focus: ["Product Management", "User Experience", "AI Systems"],
+    "Senior Product Manager and former Senior Product Designer, using product taste and first principles to build AI products people love.",
+  focus: ["Senior Product Manager", "Former Senior Product Designer"],
+  tagline: "building AI products people love.",
+  approach: "Product taste from my years as a designer, first-principles thinking as a PM.",
   linkedin: "https://www.linkedin.com/in/xpuig1/",
   github: "https://github.com/zeropandes04",
   avatarUrl: "/avatar.jpg", // Place your photo at public/avatar.jpg

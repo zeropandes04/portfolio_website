@@ -12,18 +12,18 @@ export default async function HomePage() {
   return (
     <div className="max-w-5xl mx-auto px-6">
       {/* ── Intro ───────────────────────────────────────────────────────── */}
-      <section className="rise pt-16 pb-16 md:pt-28 md:pb-24">
+      <section className="rise pt-12 pb-12 md:pt-20 md:pb-16">
         <p className="font-mono text-xs uppercase tracking-[0.18em] text-subtle mb-6">
           {profile.focus.join(" · ")}
         </p>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] text-fg max-w-3xl">
+        <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.05] text-fg max-w-3xl">
           {profile.name}
-          <span className="text-subtle"> — {profile.title.toLowerCase()} with roots in design.</span>
+          <span className="text-subtle"> — {profile.tagline}</span>
         </h1>
-        <p className="mt-6 text-lg md:text-xl text-muted leading-relaxed max-w-2xl">
-          {profile.bio}
+        <p className="mt-5 text-lg md:text-xl text-muted leading-relaxed max-w-2xl text-pretty">
+          {profile.approach}
         </p>
-        <div className="mt-10 flex flex-wrap items-center gap-3">
+        <div className="mt-8 flex flex-wrap items-center gap-3">
           <a
             href="#work"
             className="group inline-flex items-center gap-2 rounded-full bg-fg text-bg px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-85"
