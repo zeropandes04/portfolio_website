@@ -23,7 +23,7 @@ export function ProjectCard({ project, index, featured = false }: Props) {
       {/* Cover */}
       <div
         className={`relative overflow-hidden rounded-3xl ring-1 ring-line bg-surface ${
-          featured ? "aspect-[16/10] md:aspect-[21/9]" : "aspect-[16/10]"
+          "h-40"
         }`}
         style={project.coverUrl ? undefined : { background: coverGradient(hex) }}
       >
@@ -36,27 +36,25 @@ export function ProjectCard({ project, index, featured = false }: Props) {
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           />
         ) : (
-          <span className="absolute inset-0 grid place-items-center text-6xl transition-transform duration-700 ease-out group-hover:scale-110">
+          <span className={`absolute inset-0 grid place-items-center ${featured ? "text-5xl" : "text-4xl"} transition-transform duration-700 ease-out group-hover:scale-110`}>
             {icon}
           </span>
         )}
+        <span className="absolute top-3 left-3 rounded-full bg-bg/70 backdrop-blur px-2.5 py-1 font-mono text-xs text-muted">
+          {String(index + 1).padStart(2, "0")}
+        </span>
       </div>
 
       {/* Meta */}
       <div className="mt-5 flex items-start justify-between gap-6">
         <div className="min-w-0">
-          <div className="flex items-baseline gap-3">
-            <span className="font-mono text-xs text-subtle">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <h3
-              className={`font-semibold tracking-tight text-fg transition-colors group-hover:text-accent ${
-                featured ? "text-2xl md:text-3xl" : "text-xl"
-              }`}
-            >
-              {project.title}
-            </h3>
-          </div>
+          <h3
+            className={`font-semibold tracking-tight text-fg transition-colors group-hover:text-accent ${
+              featured ? "text-xl md:text-3xl" : "text-xl"
+            }`}
+          >
+            {project.title}
+          </h3>
           {project.description && (
             <p className={`mt-2 text-muted leading-relaxed line-clamp-2 ${featured ? "max-w-2xl md:text-lg" : ""}`}>
               {project.description}
