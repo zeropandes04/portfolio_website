@@ -1,5 +1,5 @@
-// Maps the Notion "Color" select to a hex accent + fallback emoji used when a
-// project has no cover image.
+// Maps the Notion "Color" select to a hex accent + fallback emoji, used when a
+// project has no Notion page icon.
 const PROJECT_COLORS: Record<string, { hex: string; icon: string }> = {
   green: { hex: "#10b981", icon: "🧾" },
   blue: { hex: "#3d79f2", icon: "📊" },
@@ -13,6 +13,11 @@ const PROJECT_COLORS: Record<string, { hex: string; icon: string }> = {
 
 export function getProjectColor(color: string) {
   return PROJECT_COLORS[color] ?? PROJECT_COLORS.blue;
+}
+
+/** The project's Notion page icon, falling back to its colour's emoji. */
+export function getProjectIcon(project: { icon: string | null; color: string }): string {
+  return project.icon ?? getProjectColor(project.color).icon;
 }
 
 /** Soft gradient background for cover placeholders. */
