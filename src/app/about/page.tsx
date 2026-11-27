@@ -11,7 +11,7 @@ const experience = [
     company: "Ocado Technology",
     roles: [
       { title: "Product Manager", period: "Jun 2021 – Present" },
-      { title: "Senior UX Designer", period: "May 2019 – May 2021" },
+      { title: "Senior Product Designer", period: "May 2019 – May 2021" },
     ],
   },
   {
@@ -44,7 +44,7 @@ export default function AboutPage() {
           Hi, I&apos;m <span className="text-accent">{profile.name.split(" ")[0]}</span>.
         </h1>
         <p className="mt-8 text-xl md:text-2xl text-muted leading-relaxed">
-          I&apos;m a Product Manager with roots in UX and product design. I work at the intersection of customer insights and data to turn ambiguous problems into products people care about.
+          I&apos;m a Senior Product Manager with roots in UX and product design. I work at the intersection of customer insights and data to turn ambiguous problems into products people care about.
         </p>
         <p className="mt-4 text-xl md:text-2xl text-muted leading-relaxed">
           I recharge my batteries by logging miles on my bike.

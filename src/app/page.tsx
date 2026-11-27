@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getProjects } from "@/lib/notion";
 import { profile } from "@/lib/profile";
 import { ProjectCard } from "@/components/ProjectCard";
-import { ArrowRight, GitHubIcon, LinkedInIcon } from "@/components/Icons";
+import { ArrowRight } from "@/components/Icons";
 
 export const revalidate = 60; // ISR: revalidate every 60 seconds
 
@@ -12,9 +12,9 @@ export default async function HomePage() {
 
   return (
     <div className="max-w-5xl mx-auto px-6">
-      {/* ── Intro ───────────────────────────────────────────────────────── */}
-      <section className="rise pt-12 pb-12 md:pt-20 md:pb-16">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-subtle mb-6">
+      {/* ── Intro: a one-glance shop window; the full story lives on /about ── */}
+      <section className="rise pt-10 pb-10 md:pt-16 md:pb-12">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-subtle mb-5">
           {/* nowrap per item so a line only ever breaks at the separator */}
           {profile.focus.map((item, i) => (
             <Fragment key={item}>
@@ -23,67 +23,24 @@ export default async function HomePage() {
             </Fragment>
           ))}
         </p>
-        <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.05] text-fg max-w-3xl">
+        <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.1] text-fg max-w-3xl">
           {profile.name}
           <span className="text-subtle"> — {profile.tagline}</span>
         </h1>
-        <p className="mt-5 text-lg md:text-xl text-muted leading-relaxed max-w-2xl text-balance">
-          {profile.approach}
-        </p>
-        <div className="mt-8 flex flex-wrap items-center gap-3">
-          <a
-            href="#work"
-            className="group inline-flex items-center gap-2 rounded-full bg-fg text-bg px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-85"
-          >
-            See the work
-            <ArrowRight size={14} className="rotate-90 transition-transform group-hover:translate-y-0.5" />
-          </a>
-          <Link
-            href="/about"
-            className="inline-flex items-center rounded-full border border-line px-5 py-2.5 text-sm font-medium text-fg transition-colors hover:bg-surface"
-          >
-            About me
-          </Link>
-          <div className="hidden sm:flex items-center gap-1 ml-1">
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="grid place-items-center size-10 rounded-full text-muted hover:text-fg hover:bg-surface transition-colors"
-            >
-              <GitHubIcon />
-            </a>
-            <a
-              href={profile.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="grid place-items-center size-10 rounded-full text-muted hover:text-accent hover:bg-surface transition-colors"
-            >
-              <LinkedInIcon />
-            </a>
-          </div>
-        </div>
+        <Link
+          href="/about"
+          className="group mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-fg transition-colors"
+        >
+          About me
+          <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+        </Link>
       </section>
 
       {/* ── Projects / Case Studies ─────────────────────────────────────── */}
       <section id="work" className="scroll-mt-24">
-        <div className="flex items-end justify-between gap-4 pb-6 mb-10 border-b border-line">
-          <div>
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-fg">
-              Projects &amp; explorations
-            </h2>
-            <p className="mt-2 text-muted">
-              Experiments, products and ideas&nbsp;— pick one to dig in.
-            </p>
-          </div>
-          {projects.length > 0 && (
-            <span className="font-mono text-xs text-subtle shrink-0">
-              {String(projects.length).padStart(2, "0")} projects
-            </span>
-          )}
-        </div>
+        <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-subtle pb-4 mb-8 border-b border-line">
+          Projects &amp; explorations
+        </h2>
 
         {projects.length === 0 ? (
           <EmptyState />
