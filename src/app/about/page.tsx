@@ -43,7 +43,10 @@ export default function AboutPage() {
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] text-fg">
           Hi, I&apos;m <span className="text-accent">{profile.name.split(" ")[0]}</span>.
         </h1>
-        <p className="mt-8 text-xl md:text-2xl text-muted leading-relaxed">
+        <p className="mt-8 text-xl md:text-2xl text-fg leading-relaxed text-balance">
+          {profile.approach}
+        </p>
+        <p className="mt-4 text-xl md:text-2xl text-muted leading-relaxed">
           I&apos;m a Product Manager with roots in UX and product design. I work at the intersection of customer insights and data to turn ambiguous problems into products people care about.
         </p>
         <p className="mt-4 text-xl md:text-2xl text-muted leading-relaxed">
