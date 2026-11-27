@@ -7,17 +7,19 @@ interface Props {
   project: Project;
   index: number;
   featured?: boolean;
+  fillRow?: boolean; // last card alone on its row: stretch it across
 }
 
-export function ProjectCard({ project, index, featured = false }: Props) {
+export function ProjectCard({ project, index, featured = false, fillRow = false }: Props) {
   const { hex } = getProjectColor(project.color);
   const icon = getProjectIcon(project);
+  const wide = featured || fillRow;
 
   return (
     <Link
       href={`/projects/${project.slug}`}
       className={`group block rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${
-        featured ? "md:col-span-2" : ""
+        fillRow ? "sm:col-span-2 lg:col-span-3" : featured ? "lg:col-span-2" : ""
       }`}
     >
       {/* Cover */}
@@ -36,7 +38,7 @@ export function ProjectCard({ project, index, featured = false }: Props) {
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           />
         ) : (
-          <span className={`absolute inset-0 grid place-items-center ${featured ? "text-5xl" : "text-4xl"} transition-transform duration-700 ease-out group-hover:scale-110`}>
+          <span className={`absolute inset-0 grid place-items-center ${wide ? "text-5xl" : "text-4xl"} transition-transform duration-700 ease-out group-hover:scale-110`}>
             {icon}
           </span>
         )}
@@ -50,13 +52,13 @@ export function ProjectCard({ project, index, featured = false }: Props) {
         <div className="min-w-0">
           <h3
             className={`font-semibold tracking-tight text-fg transition-colors group-hover:text-accent ${
-              featured ? "text-xl md:text-3xl" : "text-xl"
+              wide ? "text-xl lg:text-3xl" : "text-xl"
             }`}
           >
             {project.title}
           </h3>
           {project.description && (
-            <p className={`mt-2 text-muted leading-relaxed line-clamp-2 ${featured ? "max-w-2xl md:text-lg" : ""}`}>
+            <p className={`mt-2 text-muted leading-relaxed line-clamp-2 ${wide ? "max-w-2xl lg:text-lg" : ""}`}>
               {project.description}
             </p>
           )}

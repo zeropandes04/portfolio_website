@@ -81,7 +81,7 @@ export default async function HomePage() {
         {projects.length === 0 ? (
           <EmptyState />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
             {projects.map((project, i) => (
               <ProjectCard
                 key={project.id}
@@ -89,6 +89,8 @@ export default async function HomePage() {
                 index={i}
                 // Zigzag: wide, narrow / narrow, wide → positions 1, 4, 5, 8, 9…
                 featured={i % 4 === 0 || i % 4 === 3}
+                // Every row holds two cards, so an odd count leaves the last one alone
+                fillRow={projects.length % 2 === 1 && i === projects.length - 1}
               />
             ))}
           </div>
