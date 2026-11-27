@@ -13,7 +13,6 @@ interface Props {
 export function ProjectCard({ project, index, featured = false, fillRow = false }: Props) {
   const { hex } = getProjectColor(project.color);
   const icon = getProjectIcon(project);
-  const wide = featured || fillRow;
 
   return (
     <Link
@@ -38,7 +37,7 @@ export function ProjectCard({ project, index, featured = false, fillRow = false 
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           />
         ) : (
-          <span className={`absolute inset-0 grid place-items-center ${wide ? "text-5xl" : "text-4xl"} transition-transform duration-700 ease-out group-hover:scale-110`}>
+          <span className="absolute inset-0 grid place-items-center text-4xl transition-transform duration-700 ease-out group-hover:scale-110">
             {icon}
           </span>
         )}
@@ -50,15 +49,11 @@ export function ProjectCard({ project, index, featured = false, fillRow = false 
       {/* Meta */}
       <div className="mt-5 flex items-start justify-between gap-6">
         <div className="min-w-0">
-          <h3
-            className={`font-semibold tracking-tight text-fg transition-colors group-hover:text-accent ${
-              wide ? "text-xl lg:text-3xl" : "text-xl"
-            }`}
-          >
+          <h3 className="text-xl font-semibold tracking-tight text-fg transition-colors group-hover:text-accent">
             {project.title}
           </h3>
           {project.description && (
-            <p className={`mt-2 text-muted leading-relaxed line-clamp-2 ${wide ? "max-w-2xl lg:text-lg" : ""}`}>
+            <p className="mt-2 text-muted leading-relaxed line-clamp-2 max-w-2xl">
               {project.description}
             </p>
           )}
